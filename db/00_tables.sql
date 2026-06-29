@@ -18,9 +18,8 @@ CREATE TABLE buildings (
 );
 
 CREATE TABLE building_aliases (
-    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     building_id integer NOT NULL REFERENCES buildings (id) ON DELETE CASCADE,
-    alias text NOT NULL UNIQUE
+    alias text PRIMARY KEY
 );
 
 CREATE TABLE room_types (
