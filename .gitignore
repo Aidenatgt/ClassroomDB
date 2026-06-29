@@ -1,0 +1,59 @@
+# ==========================
+# Rust
+# ==========================
+target/
+Cargo.lock
+# Keep Cargo.lock if this becomes an application instead of a library.
+# Personally, I'd actually remove this line and commit Cargo.lock.
+
+# ==========================
+# Docker
+# ==========================
+.env
+.env.*
+docker-data/
+postgres-data/
+
+# ==========================
+# Database dumps
+# ==========================
+*.sql.bak
+*.dump
+*.backup
+
+# Don't ignore your schema!
+!.sql
+!migrations/
+
+# ==========================
+# Editors
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==========================
+# OS junk
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Logs
+# ==========================
+*.log
+
+# ==========================
+# Python (if you write import scripts)
+# ==========================
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ==========================
+# Temporary CSVs
+# ==========================
+*.tmp
