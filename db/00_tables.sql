@@ -46,9 +46,10 @@ CREATE TABLE rooms (
 );
 
 CREATE TABLE room_aliases (
-    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     room_id integer NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
-    alias text NOT NULL UNIQUE
+    building_id integer NOT NULL REFERENCES buildings (id) ON DELETE CASCADE,
+    alias text NOT NULL,
+    PRIMARY KEY (building_id, alias)
 );
 
 CREATE TABLE component_types (
@@ -75,6 +76,7 @@ ON CONFLICT (name)
 
 CREATE TABLE models (
     id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    type_id integer NOT NULL REFERENCES component_types (id) ON DELETE CASCADE,
     manufacturer text NOT NULL,
     model_name text NOT NULL,
     notes text,
@@ -84,16 +86,15 @@ CREATE TABLE models (
 CREATE TABLE components (
     id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     room_id integer NOT NULL REFERENCES rooms (id) ON DELETE CASCADE,
-    type_id integer NOT NULL REFERENCES component_types (id) ON DELETE CASCADE,
     functional bool NOT NULL DEFAULT TRUE,
-    serial_number text,
+    serial_number text NOT NULL,
     mac_address text,
     device_number text,
     stream_number text,
     ip_address text,
     port text,
-    model_id integer REFERENCES models (id) ON DELETE CASCADE,
-    UNIQUE (room_id, type_id, serial_number)
+    model_id integer NOT NULL REFERENCES models (id) ON DELETE CASCADE,
+    UNIQUE (room_id, model_id, serial_number)
 );
 
 CREATE TABLE cleanings (
